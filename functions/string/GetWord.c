@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "words.c"
-int extract_word(char str[],int num,char word[])
+int GetWord(char str[], int num, char word[])
 {
 if(words(str)<num)
 {
