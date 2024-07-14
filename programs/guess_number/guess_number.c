@@ -1,43 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-int game();
-int rnd();
+void game (void);
+int rnd (int from, int to);
+void menu (void);
 int main()
 {
-int option;
-printf("Добро пожаловать в игру угадай число!\n");
-while(1)
-{
-printf("1: Начать игру.\n");
-printf("2: Выйти.\n");
-printf("Сделайте св�ой выбор!\n");
-scanf("%i",&option);
-switch(option)
-{
-case 1:
-game(0);
-break;
-case 2:
-printf("Прощайте!\n");
-exit(1);
-break;
-default:
-printf("Это выбрать нельзя.\n");
-break;
+printf("Добро пожаловать в игру \"угадай число\"!\n");
+menu();
 }
-}
-}
-int game()
-{
-int max,num1,num2,degree=0,try,answer;
+void game() {
+int max, num1, num2, degree=0, try, answer;
 printf("От 1 и до какого числа будете угадывать?\n");
-while(max<1)
-{
-scanf("%i",&max);
-if(max<5)
-{
-printf("Но какой в этом смысл? Максимальное числ�ло должно быть не меньше 5!\n");
+while(max<1) {
+scanf("%i", &max);
+if(max<5) {
+printf("Но какой в этом смысл? Максимальное число должно быть не меньше 5!\n");
 max=0;
 }
 }
@@ -46,34 +24,47 @@ for(num2=num1;num2>1;num2=num2/2)
 {
 degree++;
 }
-try=degree+rnd(1,5);
+try=degree+rnd(1,degree);
 printf("Отгадайте число от 1 до %i, на это у вас есть %i попыток.\n",max,try);
-while(try>0)
-{
+while(try>0) {
 try--;
 scanf("%i",&answer);
-if(answer<num1)
-{
+if(answer<num1) {
 printf("Попробуйте число побольше.\nОсталось попыток: %i!\n",try);
 }
-else if(answer>num1)
-{
+else if(answer>num1) {
 printf("Попробуйте число поменьше.\nОсталось попыток: %i!\n",try);
 }
-else
-{
+else {
 printf("Поздравляем, вы угадали!\n");
-return(0);
+menu();
 }
 }
 printf("Ну ничего, в следующий раз повезет.\n");
-return(0);
+menu();
 }
-int rnd(min,max)
-int min, max;
-{
-int num;
-int snum;
+void menu () {
+	int option;
+printf("1: Начать игру.\n");
+printf("2: Выйти.\n");
+printf("Сделайте свой выбор!\n");
+scanf("%d", &option);
+switch(option) {
+case 1:
+game();
+break;
+case 2:
+printf("Прощайте!\n");
+exit(1);
+break;
+default:
+printf("Это выбрать нельзя.\n");
+menu();
+break;
+}
+}
+int rnd(int min, int max) {
+int num, snum;
 snum =time(NULL);
 srand(snum);
 if(!min) min =1;
